@@ -1,0 +1,23 @@
+{
+  "name": "vue-bruh",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "@codemirror/lang-html": "^0.20.0",
+    "@codemirror/lang-javascript": "^0.20.1",
+    "@codemirror/lang-json": "^0.20.0",
+    "@codemirror/theme-one-dark": "^0.20.0",
+    "axios": "^0.27.2",
+    "vue": "^3.2.36",
+    "vue-axios": "^3.4.1",
+    "vue-codemirror": "^5.0.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "vite": "^2.9.9"
+  }
+}
