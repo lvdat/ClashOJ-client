@@ -1,7 +1,7 @@
 <template>
-    <ul>
-        <li v-for="item in res" :key="item.id">{{ item.id }} - {{ item.name }}</li>
-    </ul>
+    <select>
+        <option v-for="item in res" :key="item.id" :value="item.id">{{ item.name }}</option>
+    </select>
 </template>
 
 <script>
@@ -25,9 +25,9 @@
                     'X-Auth-User': this.x_auth_user,
                 }
             }
-            const LangAccepted = {}
             this.axios.get(this.base_url, option).then((response) => {
                 this.res = response.data
+                this.res = this.res.filter((item) => this.allow_lang.includes(parseInt(item.id)))
             }).catch((err) => {
                 this.res = err
             })

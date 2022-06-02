@@ -1,14 +1,16 @@
-import { fileURLToPath, URL } from 'url'
-
-import { defineConfig } from 'vite'
+const { resolve } = require('path')
+const { defineConfig } = require('vite')
 import vue from '@vitejs/plugin-vue'
 
-// https://vitejs.dev/config/
-export default defineConfig({
+module.exports = defineConfig({
   plugins: [vue()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        testapi: resolve(__dirname, 'testapi.html'),
+        test: resolve(__dirname, 'test.html')
+      }
     }
   }
 })
