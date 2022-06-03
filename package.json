@@ -1,0 +1,23 @@
+{
+  "name": "clashoj_quasar",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.14.0",
+    "axios": "^0.27.2",
+    "quasar": "^2.7.1",
+    "vue": "^3.2.36",
+    "vue-axios": "^3.4.1",
+    "vue-router": "^4.0.15"
+  },
+  "devDependencies": {
+    "@quasar/vite-plugin": "^1.0.10",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "sass": "^1.32.12",
+    "vite": "^2.9.9"
+  }
+}
