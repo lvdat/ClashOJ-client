@@ -1,12 +1,17 @@
 <template>
   <div class="q-pa-md">
-    <q-table
-      title="Submission"
-      :rows="rows"
-      :columns="columns"
-      row-key="token"
-      v-model:pagination.sync="pagination"
-    />
+        <template v-if="!error">
+            <q-table
+                title="Submission"
+                :rows="rows"
+                :columns="columns"
+                row-key="token"
+                v-model:pagination.sync="pagination"
+            />
+        </template>
+        <template v-else>
+            Đã có lỗi xảy ra khi lấy dữ liệu <br /> {{ error_msg }}
+        </template>
   </div>
 </template>
 <script>
@@ -18,6 +23,8 @@ export default {
             pagination: {
                 rowsPerPage: 30 // current rows per page being displayed
             },
+            error: false,
+            error_msg: null
         }
     },
     methods: {
@@ -47,7 +54,7 @@ export default {
         const SUBMISSION = ENV.VITE_SUBMISSION_API
         const option = {
             method: 'GET',
-            url: BASE_URL + SUBMISSION + "?base64_encoded=false&fields=status,language,time,memory,token,created_at&page=1&per_page=100",
+            url: BASE_URL + SUBMISSION + "?base64_encoded=false&fields=status,language,time,memory,token,created_at&page=1&per_page=200",
             headers: {
                 'X-Auth-Token': ENV.VITE_X_AUTH_TOKEN,
                 'X-Auth-User': ENV.VITE_X_AUTH_USER
@@ -55,12 +62,13 @@ export default {
         }
         this.axios(option).then((response) => {
             let DataList = response.data['submissions']
-            for(let i = 0; i < 54; i++){
+            for(let i = 0; i < response.data['meta']['total_count']; i++){
+                let created_at = new Date(DataList[i]['created_at'])
                 let r = {
-                    token: DataList[i]['token'].slice(2, 12),
+                    token: DataList[i]['token'].slice(0, 18),
                     time: DataList[i]['time'] == null ? "NULL" : `${DataList[i]['time']}s`,
                     memory: DataList[i]['memory'] == null ? "NULL" : DataList[i]['memory'] <= 999 ? `${DataList[i]['memory']}KB` : `${(DataList[i]['memory']/1000).toFixed(2)}MB`,
-                    created: DataList[i]['created_at'],
+                    created: `${created_at.toLocaleTimeString('vi')} ${created_at.toLocaleDateString('vi')}`,
                     language: DataList[i]['language']['name'],
                     status: DataList[i]['status']['description']                   
                 }
@@ -69,6 +77,8 @@ export default {
             this.rows = rows
         }).catch((err) => {
             console.log("Error")
+            this.error = true
+            this.error_msg = err
         })
     }
 }

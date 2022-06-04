@@ -2,10 +2,14 @@
 import { createApp } from 'vue'
 import Main from './Main.vue'
 import router from './router'
+import store from './store'
 
 // import API lib
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+
+//import Auth0
+import { createAuth0 } from '@auth0/auth0-vue'
 
 // quasar import
 import { Quasar, LoadingBar, Loading } from 'quasar'
@@ -13,6 +17,7 @@ import quasarLang from 'quasar/lang/vi'
 import quasarIconSet from 'quasar/icon-set/svg-material-icons'
 
 // icon lib import
+import { FontAwesomeIcon } from './plugins/font-awesome'
 import '@quasar/extras/roboto-font/roboto-font.css'
 import '@quasar/extras/material-icons/material-icons.css'
 import '@quasar/extras/material-icons-outlined/material-icons-outlined.css'
@@ -29,8 +34,9 @@ import 'quasar/src/css/index.sass'
 
 const app = createApp(Main)
 
-app.use(router)
+app.use(router).use(store)
 app.use(VueAxios, axios)
+app.component("font-awesome-icon", FontAwesomeIcon)
 app.use(Quasar, {
     plugins: {
         LoadingBar,
@@ -60,5 +66,12 @@ app.use(Quasar, {
     }
     */
 })
+app.use(
+    createAuth0({
+        domain: "levandat.au.auth0.com",
+        client_id: "lgUU4PXjqXPYrJGI73HwQHcjyBqNuH2I",
+        redirect_uri: window.location.origin
+    })
+);
 
 app.mount('#app')

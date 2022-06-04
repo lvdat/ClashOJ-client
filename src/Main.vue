@@ -11,8 +11,8 @@
             <router-link to="/about" class="text-white">
                 About
             </router-link>
-            <router-link to="/test" class="text-white">
-                Test
+            <router-link to="/problems" class="text-white">
+                Problems
             </router-link>
             <router-link to="/testapi" class="text-white">
                 Test API
@@ -73,9 +73,9 @@
                 <q-separator />
                 <q-item clickable class="GL__menu-link-status">
                   <q-item-section>
-                    <div>
+                    <div @click="login">
                       <q-icon name="tag_faces" color="blue-9" size="18px" />
-                      Set your status
+                      Đăng nhập
                     </div>
                   </q-item-section>
                 </q-item>
@@ -122,6 +122,7 @@
 import { ref } from 'vue'
 import { fabGithub } from '@quasar/extras/fontawesome-v6'
 import { useQuasar } from 'quasar'
+import { useAuth0 } from '@auth0/auth0-vue'
 
 const stringOptions = [
   'quasarframework/quasar',
@@ -130,14 +131,37 @@ const stringOptions = [
 
 export default {
   name: 'clashOJ',
-
+  computed: {
+        currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showAdminBoard() {
+      if (this.currentUser && this.currentUser['roles']) {
+        return this.currentUser['roles'].includes('ROLE_ADMIN');
+      }
+      return false;
+    },
+    showModeratorBoard() {
+      if (this.currentUser && this.currentUser['roles']) {
+        return this.currentUser['roles'].includes('ROLE_MODERATOR');
+      }
+      return false;
+    }
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
+    }
+  },
   setup () {
     const $q = useQuasar()
     const text = ref('')
     const options = ref(null)
     const filteredOptions = ref([])
     const search = ref(null) // $refs.search
-    
+    const { loginWithRedirect } = useAuth0()
+
     $q.loadingBar.setDefaults({
       color: 'green',
       size: '3px',
@@ -181,11 +205,13 @@ export default {
       })
     }
     
-    $q.loading.hide()
+     $q.loading.hide()
     
     return {
+      login: () => {
+        loginWithRedirect();
+      },
       fabGithub,
-
       text,
       options,
       filteredOptions,
