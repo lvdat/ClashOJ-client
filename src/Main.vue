@@ -29,39 +29,47 @@
 
         <div class="q-pl-sm q-gutter-sm row items-center no-wrap">
           <q-btn v-if="$q.screen.gt.xs" dense flat round size="sm" icon="notifications" />
-          <q-btn v-if="$q.screen.gt.xs" dense flat>
-            <div class="row items-center no-wrap">
-              <q-icon name="add" size="20px" />
-              <q-icon name="arrow_drop_down" size="16px" style="margin-left: -2px" />
-            </div>
-            <q-menu auto-close>
-              <q-list dense style="min-width: 100px">
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>New repository</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>Import repository</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>New gist</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>New organization</q-item-section>
-                </q-item>
-                <q-separator />
-                <q-item-label header>This repository</q-item-label>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>New issue</q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
 
           <q-btn dense flat no-wrap>
             <q-avatar rounded size="20px">
-              <img :src="avatar">
+              <img :src="!currentUser ? avatar : ''">
             </q-avatar>
             <q-icon name="arrow_drop_down" size="16px" />
+
+            <template v-if="!currentUser">
+              <q-menu dense>
+                <q-item class="GL__menu-link-signed-in">
+                  <q-item-section>
+                    <div>Bạn <strong>chưa đăng nhập!</strong></div>
+                  </q-item-section>
+                </q-item>
+                <q-separator />
+                <q-item clickable class="GL__menu-link-status">
+                  <q-item-section>
+                    <router-link to="/login" class="route_link">
+                      <div>
+                        <q-icon name="login" />
+                        Đăng nhập
+                      </div>
+                    </router-link>
+                  </q-item-section>
+                </q-item>
+                <q-item clickable class="GL__menu-link-status">
+                  <q-item-section>
+                    <router-link to="/register" class="route_link">
+                      <div>
+                        <q-icon name="person_add" />
+                        Tạo tài khoản!
+                      </div>
+                    </router-link>
+                  </q-item-section>
+                </q-item>
+              </q-menu>
+            </template>
+            <template v-else>
+
+            </template>
+
 
             <q-menu auto-close>
               <q-list dense>
@@ -136,7 +144,7 @@ export default {
     }
   },
   computed: {
-        currentUser() {
+    currentUser() {
       return this.$store.state.auth.user;
     },
     showAdminBoard() {
@@ -238,6 +246,13 @@ export default {
     }
     .clashoj_body{
       padding: 1em;
+    }
+    .route_link {
+      text-decoration: none;
+      color: var(--q-dark);
+    }
+    .route_link:hover {
+      color: var(--q-primary);
     }
 </style>
 

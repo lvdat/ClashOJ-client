@@ -14,7 +14,9 @@ import quasarLang from 'quasar/lang/vi'
 import quasarIconSet from 'quasar/icon-set/svg-material-icons'
 
 // icon lib import
-import { FontAwesomeIcon } from './plugins/font-awesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import '@quasar/extras/roboto-font/roboto-font.css'
 import '@quasar/extras/material-icons/material-icons.css'
 import '@quasar/extras/material-icons-outlined/material-icons-outlined.css'
@@ -33,6 +35,7 @@ const app = createApp(Main)
 
 app.use(router).use(store)
 app.use(VueAxios, axios)
+library.add(faArrowRightToBracket)
 app.component("font-awesome-icon", FontAwesomeIcon)
 app.use(Quasar, {
     plugins: {
