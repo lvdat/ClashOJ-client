@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 import Main from './Main.vue'
 import router from './router'
 import store from './store'
+import Notifications from '@kyvg/vue3-notification'
 
 // import API lib
 import axios from 'axios'
@@ -35,6 +36,7 @@ const app = createApp(Main)
 
 app.use(router).use(store)
 app.use(VueAxios, axios)
+app.use(Notifications)
 library.add(faArrowRightToBracket)
 app.component("font-awesome-icon", FontAwesomeIcon)
 app.use(Quasar, {

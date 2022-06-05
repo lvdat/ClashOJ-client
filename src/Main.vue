@@ -37,84 +37,83 @@
             <q-icon name="arrow_drop_down" size="16px" />
 
             <template v-if="!currentUser">
-              <q-menu dense>
-                <q-item class="GL__menu-link-signed-in">
-                  <q-item-section>
-                    <div>Bạn <strong>chưa đăng nhập!</strong></div>
-                  </q-item-section>
-                </q-item>
-                <q-separator />
-                <q-item clickable class="GL__menu-link-status">
-                  <q-item-section>
-                    <router-link to="/login" class="route_link">
-                      <div>
-                        <q-icon name="login" />
-                        Đăng nhập
-                      </div>
-                    </router-link>
-                  </q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link-status">
-                  <q-item-section>
-                    <router-link to="/register" class="route_link">
-                      <div>
-                        <q-icon name="person_add" />
-                        Tạo tài khoản!
-                      </div>
-                    </router-link>
-                  </q-item-section>
-                </q-item>
+              <q-menu auto-close>
+                <q-list dense>
+                  <q-item class="GL__menu-link-signed-in">
+                    <q-item-section>
+                      <div>Bạn <strong>chưa đăng nhập!</strong></div>
+                    </q-item-section>
+                  </q-item>
+                  <q-separator />
+                  <q-item clickable class="GL__menu-link-status">
+                    <q-item-section>
+                      <router-link to="/login" class="route_link">
+                        <div>
+                          <q-icon name="login" />
+                          Đăng nhập
+                        </div>
+                      </router-link>
+                    </q-item-section>
+                  </q-item>
+                  <q-item clickable class="GL__menu-link-status">
+                    <q-item-section>
+                      <router-link to="/register" class="route_link">
+                        <div>
+                          <q-icon name="person_add" />
+                          Tạo tài khoản!
+                        </div>
+                      </router-link>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
               </q-menu>
             </template>
             <template v-else>
-
+              <q-menu auto-close>
+                <q-list dense>
+                  <q-item class="GL__menu-link-signed-in">
+                    <q-item-section>
+                      <div>Xin chào, <strong>Le Van Dat</strong></div>
+                    </q-item-section>
+                  </q-item>
+                  <q-separator />
+                  <q-item clickable class="GL__menu-link-status">
+                    <q-item-section>
+                      <div @click="login">
+                        <q-icon name="tag_faces" color="blue-9" size="18px" />
+                        Đăng nhập
+                      </div>
+                    </q-item-section>
+                  </q-item>
+                  <q-separator />
+                  <q-item clickable class="GL__menu-link">
+                    <q-item-section>Your profile</q-item-section>
+                  </q-item>
+                  <q-item clickable class="GL__menu-link">
+                    <q-item-section>Your repositories</q-item-section>
+                  </q-item>
+                  <q-item clickable class="GL__menu-link">
+                    <q-item-section>Your projects</q-item-section>
+                  </q-item>
+                  <q-item clickable class="GL__menu-link">
+                    <q-item-section>Your stars</q-item-section>
+                  </q-item>
+                  <q-item clickable class="GL__menu-link">
+                    <q-item-section>Your gists</q-item-section>
+                  </q-item>
+                  <q-separator />
+                  <q-item clickable class="GL__menu-link">
+                    <q-item-section>Help</q-item-section>
+                  </q-item>
+                  <q-item clickable class="GL__menu-link">
+                    <q-item-section>Settings</q-item-section>
+                  </q-item>
+                  <q-item clickable class="GL__menu-link">
+                    <q-item-section @click.prevent="logOut">Sign out</q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
             </template>
-
-
-            <q-menu auto-close>
-              <q-list dense>
-                <q-item class="GL__menu-link-signed-in">
-                  <q-item-section>
-                    <div>Signed in as <strong>Mary</strong></div>
-                  </q-item-section>
-                </q-item>
-                <q-separator />
-                <q-item clickable class="GL__menu-link-status">
-                  <q-item-section>
-                    <div @click="login">
-                      <q-icon name="tag_faces" color="blue-9" size="18px" />
-                      Đăng nhập
-                    </div>
-                  </q-item-section>
-                </q-item>
-                <q-separator />
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>Your profile</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>Your repositories</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>Your projects</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>Your stars</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>Your gists</q-item-section>
-                </q-item>
-                <q-separator />
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>Help</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section>Settings</q-item-section>
-                </q-item>
-                <q-item clickable class="GL__menu-link">
-                  <q-item-section @click.prevent="logOut">Sign out</q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
           </q-btn>
         </div>
       </q-toolbar>
@@ -124,12 +123,14 @@
       <router-view />
     </q-page-container>
   </q-layout>
+  <notifications />
 </template>
 
 <script>
 import { ref } from 'vue'
 import { fabGithub } from '@quasar/extras/fontawesome-v6'
 import { useQuasar } from 'quasar'
+import { notify } from "@kyvg/vue3-notification";
 
 const stringOptions = [
   'quasarframework/quasar',
@@ -140,7 +141,7 @@ export default {
   name: 'clashOJ',
   data() {
     return {
-      avatar: "https://cdn.quasar.dev/img/avatar3.jpg"
+      avatar: "https://cdn.quasar.dev/img/avatar3.jpg",
     }
   },
   computed: {
@@ -163,7 +164,13 @@ export default {
   methods: {
     logOut() {
       this.$store.dispatch('auth/logout');
-      this.$router.push('/login');
+      this.$notify({
+        title: "Success!",
+        text: "Đã đăng xuất thành công!",
+        type: "success",
+        position: "bottom right"
+      });
+      this.$router.push('/');
     }
   },
   setup () {
@@ -172,7 +179,6 @@ export default {
     const options = ref(null)
     const filteredOptions = ref([])
     const search = ref(null) // $refs.search
-
     $q.loadingBar.setDefaults({
       color: 'green',
       size: '3px',

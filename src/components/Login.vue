@@ -34,9 +34,11 @@
       </Form>
     </div>
   </div>
+  <notifications />
 </template>
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
+
 import * as yup from "yup";
 export default {
   name: "Login",
@@ -71,7 +73,15 @@ export default {
       this.loading = true;
       this.$store.dispatch("auth/login", user).then(
         () => {
-          this.$router.push("/profile");
+          this.$notify({
+            title: "Successful!",
+            text: "Đăng nhập thành công, đang chuyển hướng về trang chủ",
+            duration: 3000,
+            type: 'success'
+          });
+          setTimeout(() => {
+            this.$router.push("/profile");
+          }, 2000);
         },
         (error) => {
           this.loading = false;

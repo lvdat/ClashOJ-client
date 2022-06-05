@@ -11,6 +11,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "@kyvg/vue3-notification": "^2.3.4",
     "@quasar/extras": "^1.14.0",
     "axios": "^0.27.2",
     "quasar": "^2.7.1",

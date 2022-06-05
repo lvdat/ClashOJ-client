@@ -1,6 +1,6 @@
 # clashoj_quasar
 
-This template should help get you started developing with Vue 3 in Vite.
+Hệ thống thi đấu code realtime ClashOJ. Project vẫn đang trong giai đoạn phát triển. Đây là repo phần client, truy cập vào repo của judge server ở [ClashOJ-judge-server](https://github.com/lvdat/ClashOJ-judge-server), repo của Database server ở [ClashOJ-server](https://github.com/lvdat/ClashOJ-server)
 
 ## Recommended IDE Setup
 
