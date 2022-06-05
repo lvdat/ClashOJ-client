@@ -8,9 +8,6 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-//import Auth0
-import { createAuth0 } from '@auth0/auth0-vue'
-
 // quasar import
 import { Quasar, LoadingBar, Loading } from 'quasar'
 import quasarLang from 'quasar/lang/vi'
@@ -66,12 +63,5 @@ app.use(Quasar, {
     }
     */
 })
-app.use(
-    createAuth0({
-        domain: "levandat.au.auth0.com",
-        client_id: "lgUU4PXjqXPYrJGI73HwQHcjyBqNuH2I",
-        redirect_uri: window.location.origin
-    })
-);
 
 app.mount('#app')

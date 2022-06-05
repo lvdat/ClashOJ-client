@@ -59,7 +59,7 @@
 
           <q-btn dense flat no-wrap>
             <q-avatar rounded size="20px">
-              <img src="https://cdn.quasar.dev/img/avatar3.jpg">
+              <img :src="avatar">
             </q-avatar>
             <q-icon name="arrow_drop_down" size="16px" />
 
@@ -103,7 +103,7 @@
                   <q-item-section>Settings</q-item-section>
                 </q-item>
                 <q-item clickable class="GL__menu-link">
-                  <q-item-section>Sign out</q-item-section>
+                  <q-item-section @click.prevent="logOut">Sign out</q-item-section>
                 </q-item>
               </q-list>
             </q-menu>
@@ -122,7 +122,6 @@
 import { ref } from 'vue'
 import { fabGithub } from '@quasar/extras/fontawesome-v6'
 import { useQuasar } from 'quasar'
-import { useAuth0 } from '@auth0/auth0-vue'
 
 const stringOptions = [
   'quasarframework/quasar',
@@ -131,6 +130,11 @@ const stringOptions = [
 
 export default {
   name: 'clashOJ',
+  data() {
+    return {
+      avatar: "https://cdn.quasar.dev/img/avatar3.jpg"
+    }
+  },
   computed: {
         currentUser() {
       return this.$store.state.auth.user;
@@ -160,7 +164,6 @@ export default {
     const options = ref(null)
     const filteredOptions = ref([])
     const search = ref(null) // $refs.search
-    const { loginWithRedirect } = useAuth0()
 
     $q.loadingBar.setDefaults({
       color: 'green',
@@ -208,9 +211,6 @@ export default {
      $q.loading.hide()
     
     return {
-      login: () => {
-        loginWithRedirect();
-      },
       fabGithub,
       text,
       options,
